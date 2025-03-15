@@ -355,7 +355,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Full Name"
+                  placeholder="Name"
                   value={formData.name}
                   onChange={handleChange}
                   required
