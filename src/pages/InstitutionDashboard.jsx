@@ -12,11 +12,16 @@ const InstitutionDashboard = () => {
     const fetchEndorsements = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://192.168.235.4:5000/api/endorsements/pending', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        // Correctly access the endorsements from the response structure
-        setPendingEndorsements(response.data.data.endorsements || []);
+        const headers = { Authorization: `Bearer ${token}` };
+
+        // Fetch both pending and verified endorsements in parallel
+        const [pendingResponse, verifiedResponse] = await Promise.all([
+          axios.get('http://192.168.235.4:5000/api/endorsements/pending', { headers }),
+          axios.get('http://192.168.235.4:5000/api/endorsements/verified', { headers })
+        ]);
+
+        setPendingEndorsements(pendingResponse.data.data.endorsements || []);
+        setVerifiedEndorsements(verifiedResponse.data.data.endorsements || []);
         setLoading(false);
       } catch (err) {
         setError(err.message || 'Failed to fetch endorsements');
@@ -33,20 +38,15 @@ const InstitutionDashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const verifiedEndorsement = pendingEndorsements.find(
-        (endorsement) => endorsement._id === id
-      );
+      // After verification, fetch both lists again to ensure they're up to date
+      const headers = { Authorization: `Bearer ${token}` };
+      const [pendingResponse, verifiedResponse] = await Promise.all([
+        axios.get('http://192.168.235.4:5000/api/endorsements/pending', { headers }),
+        axios.get('http://192.168.235.4:5000/api/endorsements/verified', { headers })
+      ]);
 
-      setPendingEndorsements(
-        pendingEndorsements.filter((endorsement) => endorsement._id !== id)
-      );
-
-      if (verifiedEndorsement) {
-        setVerifiedEndorsements([...verifiedEndorsements, {
-          ...verifiedEndorsement,
-          status: 'verified'
-        }]);
-      }
+      setPendingEndorsements(pendingResponse.data.data.endorsements || []);
+      setVerifiedEndorsements(verifiedResponse.data.data.endorsements || []);
     } catch (err) {
       setError(err.message || 'Failed to verify endorsement');
     }
