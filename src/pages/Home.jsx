@@ -307,11 +307,11 @@ const Home = () => {
       <div className="animated-background"></div>
       <div className="content">
         <h1 className="title">
-          <span className="neon-text">Skill</span>
-          <span className="neon-text-alt">Verify</span>
+          <span className="neon-text-alt">ENDORSE</span>
+          <span className="neon-text">ME</span>
         </h1>
         
-        <p className="subtitle">Professional Endorsement Platform</p>
+        <p className="subtitle">GET SUPPORTED & GROW FURTHER</p>
         
         <div className="features">
           <div className="feature-card">
