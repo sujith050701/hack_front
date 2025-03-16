@@ -35,8 +35,8 @@ const ProfessionalDashboard = () => {
 
         // Fetch both endorsements and institutions
         const [endorsementsRes, institutionsRes] = await Promise.all([
-          axios.get('http://192.168.235.4:5000/api/endorsements/my-endorsements', { headers }),
-          axios.get('http://192.168.235.4:5000/api/profiles/institutions', { headers }),
+          axios.get('http://192.168.206.4:5000/api/endorsements/my-endorsements', { headers }),
+          axios.get('http://192.168.206.4:5000/api/profiles/institutions', { headers }),
         ]);
 
         setEndorsements(endorsementsRes.data.data.endorsements);
@@ -70,7 +70,7 @@ const ProfessionalDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post('http://192.168.235.4:5000/api/endorsements', 
+      const response = await axios.post('http://192.168.206.4:5000/api/endorsements', 
         newEndorsement,  // Send the state directly since it matches the backend schema
         {
           headers: { Authorization: `Bearer ${token}` },

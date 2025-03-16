@@ -33,7 +33,7 @@ const Register = () => {
         ...formData,
         skills: formData.skills ? formData.skills.split(',').map((skill) => skill.trim()) : [],
       };
-      await axios.post('http://192.168.235.4:5000/api/auth/register', submitData);
+      await axios.post('http://192.168.206.4:5000/api/auth/register', submitData);
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
@@ -347,6 +347,7 @@ const Register = () => {
           </div>
 
           {error && <div className="error-message">{error}</div>}
+
 
           <form onSubmit={handleSubmit}>
             <div className="form-section">

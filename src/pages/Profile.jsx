@@ -14,7 +14,7 @@ const Profile = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          `http://192.168.235.4:5000/api/profiles/${id}`,
+          `http://192.168.206.4:5000/api/profiles/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` }
           }

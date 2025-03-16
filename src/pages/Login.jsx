@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://192.168.235.4:5000/api/auth/login', formData);
+      const response = await axios.post('http://192.168.206.4:5000/api/auth/login', formData);
       const { token, user } = response.data.data;
 
       // Store token and user data

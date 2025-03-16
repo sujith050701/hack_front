@@ -16,8 +16,8 @@ const InstitutionDashboard = () => {
 
         // Fetch both pending and verified endorsements in parallel
         const [pendingResponse, verifiedResponse] = await Promise.all([
-          axios.get('http://192.168.235.4:5000/api/endorsements/pending', { headers }),
-          axios.get('http://192.168.235.4:5000/api/endorsements/verified', { headers })
+          axios.get('http://192.168.206.4:5000/api/endorsements/pending', { headers }),
+          axios.get('http://192.168.206.4:5000/api/endorsements/verified', { headers })
         ]);
 
         setPendingEndorsements(pendingResponse.data.data.endorsements || []);
@@ -34,15 +34,15 @@ const InstitutionDashboard = () => {
   const handleVerify = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://192.168.235.4:5000/api/endorsements/${id}/verify`, {}, {
+      await axios.patch(`http://192.168.206.4:5000/api/endorsements/${id}/verify`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       // After verification, fetch both lists again to ensure they're up to date
       const headers = { Authorization: `Bearer ${token}` };
       const [pendingResponse, verifiedResponse] = await Promise.all([
-        axios.get('http://192.168.235.4:5000/api/endorsements/pending', { headers }),
-        axios.get('http://192.168.235.4:5000/api/endorsements/verified', { headers })
+        axios.get('http://192.168.206.4:5000/api/endorsements/pending', { headers }),
+        axios.get('http://192.168.206.4:5000/api/endorsements/verified', { headers })
       ]);
 
       setPendingEndorsements(pendingResponse.data.data.endorsements || []);
